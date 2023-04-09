@@ -1,0 +1,3 @@
+datasource:
+  ddl:
+    auto: create-insert #create-only, create, create-insert
