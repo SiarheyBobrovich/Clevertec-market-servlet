@@ -1,3 +1,10 @@
 datasource:
+  url: jdbc:postgresql://localhost:5432/clevertec
+  username: postgres
+  password: 172143
   ddl:
-    auto: create-insert #create-only, create, create-insert
+    auto: drop-create #create, drop-create
+liquibase:
+  changeLog:
+    file: /liquibase/db.changelog.xml
+    schema: market

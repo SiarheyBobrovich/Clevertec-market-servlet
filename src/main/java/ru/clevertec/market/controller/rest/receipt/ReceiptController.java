@@ -27,7 +27,7 @@ public class ReceiptController extends HttpServlet {
     public ReceiptController() {
         service = new PdfServiceImpl(
                 ApplicationConfig.getProductService(),
-                ApplicationConfig.getCardService(),
+                ApplicationConfig.getDiscountCardService(),
                 new ReceiptFactory());
     }
 

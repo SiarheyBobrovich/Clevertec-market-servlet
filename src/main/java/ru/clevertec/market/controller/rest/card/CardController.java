@@ -25,7 +25,7 @@ public class CardController extends HttpServlet {
     private final ObjectMapper mapper;
 
     public CardController() {
-        this.cardService = ApplicationConfig.getCardService();
+        this.cardService = ApplicationConfig.getDiscountCardService();
         this.mapper = ApplicationConfig.getObjectMapper();
     }
 
