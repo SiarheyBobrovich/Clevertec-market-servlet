@@ -16,53 +16,46 @@ import ru.clevertec.market.service.api.DiscountCardService;
 import ru.clevertec.market.service.api.ProductService;
 
 import javax.sql.DataSource;
-import java.io.InputStream;
-import java.util.TimeZone;
 
 public class ApplicationConfig {
 
     private static final String APPLICATION_YML = "/application.yml";
-    private static final String DATASOURCE_URL = "datasource.url";
+    private static final String DATASOURCE_URL ="datasource.url";
     private static final String DATASOURCE_USERNAME = "datasource.username";
     private static final String DATASOURCE_PASSWORD = "datasource.password";
 
-    private static final DataSource dataSource;
-    private static final Configuration configuration;
-    private static final ProductDao productDao;
-    private static final ProductService productService;
-    private static final ObjectMapper objectMapper;
-    private static final DiscountCardDao discountCardDao;
-    private static final DiscountCardService cardService;
+    private static final Configuration CONFIGURATION;
+    private static final DataSource DATA_SOURCE;
+    private static final ProductDao PRODUCT_DAO;
+    private static final ProductService PRODUCT_SERVICE;
+    private static final ObjectMapper OBJECT_MAPPER;
+    private static final DiscountCardDao DISCOUNT_CARD_DAO;
+    private static final DiscountCardService DISCOUNT_CARD_SERVICE;
 
     static {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-    }
-
-    static {
-        final InputStream resourceAsStream = ApplicationConfig.class.getResourceAsStream(APPLICATION_YML);
         final YAMLConfiguration yamlConfiguration = new YAMLConfiguration();
         try {
-            yamlConfiguration.read(resourceAsStream);
+            yamlConfiguration.read(ApplicationConfig.class.getResourceAsStream(APPLICATION_YML));
         } catch (ConfigurationException e) {
             throw new RuntimeException(e);
         }
-        configuration = yamlConfiguration;
+        CONFIGURATION = yamlConfiguration;
     }
 
     static {
         PGSimpleDataSource pgSimpleDataSource = new PGSimpleDataSource();
-        pgSimpleDataSource.setURL(configuration.getString(DATASOURCE_URL));
-        pgSimpleDataSource.setUser(configuration.getString(DATASOURCE_USERNAME));
-        pgSimpleDataSource.setPassword(configuration.getString(DATASOURCE_PASSWORD));
-        dataSource = pgSimpleDataSource;
+        pgSimpleDataSource.setURL(CONFIGURATION.getString(DATASOURCE_URL));
+        pgSimpleDataSource.setUser(CONFIGURATION.getString(DATASOURCE_USERNAME));
+        pgSimpleDataSource.setPassword(CONFIGURATION.getString(DATASOURCE_PASSWORD));
+        DATA_SOURCE = pgSimpleDataSource;
     }
 
     static {
-        productDao = new JdbcProductDao(dataSource);
-        discountCardDao = new JdbcDiscountCardDao(dataSource);
-        productService = new ProductServiceImpl(productDao);
-        cardService = new DiscountCardServiceImpl(discountCardDao);
-        objectMapper = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+        PRODUCT_DAO = new JdbcProductDao(DATA_SOURCE);
+        DISCOUNT_CARD_DAO = new JdbcDiscountCardDao(DATA_SOURCE);
+        PRODUCT_SERVICE = new ProductServiceImpl(PRODUCT_DAO);
+        DISCOUNT_CARD_SERVICE = new DiscountCardServiceImpl(DISCOUNT_CARD_DAO);
+        OBJECT_MAPPER = new ObjectMapper().setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
 
     private ApplicationConfig() {
@@ -70,22 +63,21 @@ public class ApplicationConfig {
     }
 
     public static ProductService getProductService() {
-        return productService;
+        return PRODUCT_SERVICE;
     }
 
-    public static DiscountCardService getCardService() {
-        return cardService;
+    public static DiscountCardService getDiscountCardService() {
+        return DISCOUNT_CARD_SERVICE;
     }
 
     public static ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
-
-    public static Configuration getConfiguration() {
-        return configuration;
+        return OBJECT_MAPPER;
     }
 
     public static DataSource getDataSource() {
-        return dataSource;
+        return DATA_SOURCE;
+    }
+    public static Configuration getConfiguration() {
+        return CONFIGURATION;
     }
 }

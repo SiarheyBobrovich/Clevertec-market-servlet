@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+        http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
+    <changeSet id="1" author="Bobrovich">
+        <createSequence cacheSize="1"
+                        cycle="true"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        schemaName="market"
+                        sequenceName="product_seq"
+                        startValue="1"/>
+        <createSequence cacheSize="1"
+                        cycle="true"
+                        incrementBy="1"
+                        maxValue="9223372036854775807"
+                        minValue="1"
+                        schemaName="market"
+                        sequenceName="discount_card_seq"
+                        startValue="1"/>
+    </changeSet>
+</databaseChangeLog>

@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS market.product (
     id              INTEGER         PRIMARY KEY     DEFAULT nextval('market.product_seq'),
     description     VARCHAR(20)     NOT NULL,
     price           DECIMAL         NOT NULL,
-    quantity        INTEGER         NOT NULL,
-    is_discount     BOOLEAN         NOT NULL        CHECK (quantity >=0)
+    quantity        INTEGER         NOT NULL        CHECK (quantity >=0),
+    is_discount     BOOLEAN         NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS market.discount_card (

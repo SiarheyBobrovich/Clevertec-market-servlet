@@ -19,15 +19,18 @@
 
 ### Configurations
   - datasource:
-    - url: required
-    - username: required
-    - password: required
+    - url: jdbc:postgresql://localhost:5432/clevertec
+    - username: postgres
+    - password: 172143
     - ddl:
-      - auto: [create-only, create, create-insert]
+      - auto: [create, drop-create]
+    - liquibase:
+      - changeLog:
+      - file: /liquibase/db.changelog.xml
+      - schema: market
 <pre>
-create-only - create schema and tables if not exists
-create - drop schema/tables + create-only
-create-insert - create + insert data
+      create - execute changes
+      drop-create - drop schema and execute changes
 </pre>
 
 ## Endpoints:

@@ -2,14 +2,12 @@ package ru.clevertec.market.listener;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
 import org.apache.commons.configuration2.Configuration;
 import ru.clevertec.market.config.ApplicationConfig;
 import ru.clevertec.market.dao.JdbcInitializer;
 
 import java.util.Objects;
 
-@WebListener
 public class JdbcContextListener implements ServletContextListener {
 
     private static final String DATASOURCE_DDL_AUTO = "datasource.ddl.auto";
